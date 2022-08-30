@@ -4,7 +4,7 @@ import { game } from './game.js';
 alert('YOU NEED TO OPEN DEVELOPER CONSOLE IN ORDER TO PLAY THE GAME!!!');
 
 // game properties
-let wonRoundsCount = 1;
+let wonRoundsCount = 3;
 
 // start game
 game(wonRoundsCount);
