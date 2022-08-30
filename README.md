@@ -1,2 +1,3 @@
-# rock-paper-scissors-game
- This is the console game Rock, Paper, Scissors
+# Rock-Paper-Scissors game
+
+ JS First project of the Brainnest Frontend Web Development Traineeship (only JavaScript)
