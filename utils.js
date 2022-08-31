@@ -1,6 +1,12 @@
 
 // HELPER FUNCTIONS
 
+// since console.log() function is asynchronous function, and
+// prompt() will block every asynchronous code from executing,
+// once it's called, so in order to ensure that prompt will let
+// console.log() to actually print specified string to the console
+// we must make prompt asynchronous as well
+
 // function that handles user input and prevent other 
 // prompt() functions from firing before console.log()
 export async function handlePrompt(userMessage) {
