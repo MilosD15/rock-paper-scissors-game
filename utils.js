@@ -11,8 +11,10 @@
 // prompt() functions from firing before console.log()
 export async function handlePrompt(userMessage) {
     return new Promise(res => {
-        const userInput = prompt(userMessage);
-        res(userInput);
+        setTimeout(() => {
+            const userInput = prompt(userMessage);
+            res(userInput);
+        }, 0);
     });
 }
 
