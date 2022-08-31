@@ -1,11 +1,18 @@
 import { 
     printToTheConsole, 
     capitalizeWord, 
-    getRandomNumber 
+    getRandomNumber,
+    handlePrompt
 } from './utils.js';
 
+// global variables
+const GAME_STATES = {
+    IN_PROGRESS: Symbol("in progress"),
+    ENDED: Symbol("ended")
+}
+
 // FUNCTIONS CLOSELY RELATED TO THE GAME
-export function game(WON_ROUNDS_COUNT) {
+export async function game(WON_ROUNDS_COUNT) {
     console.clear();
 
     let score = {
@@ -14,7 +21,11 @@ export function game(WON_ROUNDS_COUNT) {
     };
 
     while(calculateLeaderScore(score) < WON_ROUNDS_COUNT) {
-        score = playRound(score);
+        const result = await playRound(score);
+        if (result.currentGameState === GAME_STATES.ENDED) {
+            printToTheConsole("GAME ENDED"); return;
+        }
+        score = result.score;
         printCurrentScore(score);
         printToTheConsole("-------------------------------------");
     }
@@ -39,9 +50,16 @@ function printCurrentScore({ playerScore, computerScore }, isFinalScore = false)
     printToTheConsole(`\tYou😎 ${playerScore} - ${computerScore} Machine💻`);
 }
 
-function playRound({ playerScore, computerScore }) {
+async function playRound({ playerScore, computerScore }) {
     const computerPlay = getComputerPlay();
-    const playerSelection = getPlayerSelection();
+    const {playerSelection, currentGameState} = await getPlayerSelection();
+
+    if (currentGameState === GAME_STATES.ENDED) {
+        return {
+            currentGameState,
+            score: {}
+        }
+    }
 
     printPicks(playerSelection, computerPlay);
 
@@ -56,7 +74,10 @@ function playRound({ playerScore, computerScore }) {
         printOutcomeMessage("tie");
     }
 
-    return { playerScore, computerScore };
+    return {
+        currentGameState,
+        score: { playerScore, computerScore }
+    }
 }
 
 function getRoundWinner(playerSelection, computerPlay) {
@@ -70,14 +91,22 @@ function getRoundWinner(playerSelection, computerPlay) {
     return 'machine';
 }
 
-function getPlayerSelection() {
-    const userInput = (prompt("Enter Rock, Paper or Scissors:") ?? '').trim();
+async function getPlayerSelection() {
+    const userInput = await handlePrompt("Enter Rock, Paper or Scissors:");
+
+    if (userInput == null) return {
+        currentGameState: GAME_STATES.ENDED,
+        playerSelection: ''
+    };
 
     // invalid input
-    if (!validateUserInput(userInput)) return getPlayerSelection();
+    if (!validateUserInput(userInput.trim())) return await getPlayerSelection();
 
     // valid input
-    return userInput.toLowerCase();
+    return {
+        currentGameState: GAME_STATES.IN_PROGRESS,
+        playerSelection: userInput.toLowerCase()
+    };
 }
 
 function getComputerPlay() {

@@ -1,5 +1,15 @@
 
 // HELPER FUNCTIONS
+
+// function that handles user input and prevent other 
+// prompt() functions from firing before console.log()
+export async function handlePrompt(userMessage) {
+    return new Promise(res => {
+        const userInput = prompt(userMessage);
+        res(userInput);
+    });
+}
+
 export function printToTheConsole(string, options = { color: undefined, fontSize: "20px"}) {
     options.color = options.color ?? undefined;
     options.fontSize = options.fontSize ?? '20px';
