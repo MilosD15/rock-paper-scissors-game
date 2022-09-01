@@ -4,7 +4,11 @@ import { game } from './game.js';
 let wonRoundsCount = 2;
 
 // start game
-await game(wonRoundsCount);
+// await game(wonRoundsCount);
+
+document.querySelector("button").addEventListener('click', async () => {
+    await game(wonRoundsCount);
+});
 
 document.addEventListener('keydown', async e => {
     // restarting the game when ALT + A is clicked
