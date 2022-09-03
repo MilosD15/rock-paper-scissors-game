@@ -1,7 +1,7 @@
 import { game } from './game.js';
 
 // game properties
-let wonRoundsCount = 2;
+let wonRoundsCount = 3;
 
 // start game
 // await game(wonRoundsCount);
