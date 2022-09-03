@@ -4,11 +4,15 @@ import { game } from './game.js';
 let wonRoundsCount = 3;
 
 // start game
-// await game(wonRoundsCount);
+await game(wonRoundsCount);
 
-document.querySelector("button").addEventListener('click', async () => {
-    await game(wonRoundsCount);
-});
+alert("YOU CAN RESTART THE GAME BY CLICKING ON ALT + A AS SOON AS CURRENT GAME IS FINISHED!");
+
+alert("YOU CAN CHANGE HOW MANY WON ROUNDS YOU WANT TO PLAY IN BY CLICKING ON ALT + C AS SOON AS CURRENT GAME IS FINISHED!!");
+
+// document.querySelector("button").addEventListener('click', async () => {
+//     await game(wonRoundsCount);
+// });
 
 document.addEventListener('keydown', async e => {
     // restarting the game when ALT + A is clicked
