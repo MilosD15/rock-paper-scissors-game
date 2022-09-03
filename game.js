@@ -100,12 +100,12 @@ async function getPlayerSelection() {
     };
 
     // invalid input
-    if (!validateUserInput(userInput.trim())) return await getPlayerSelection();
+    if (!validateUserInput(userInput)) return await getPlayerSelection();
 
     // valid input
     return {
         currentGameState: GAME_STATES.IN_PROGRESS,
-        playerSelection: userInput.toLowerCase()
+        playerSelection: userInput.toLowerCase().trim()
     };
 }
 
